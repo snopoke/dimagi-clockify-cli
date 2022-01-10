@@ -240,8 +240,8 @@ async def stop_timer(
     if since_dt is None:
         since_dt = datetime.utcnow()
     endpoint = f'/workspaces/{workspace.id}/user/{user.id}/time-entries'
-    # End a second earlier to prevent overlapping time entries
-    body = {'end': zulu(since_dt - timedelta(seconds=1))}
+    # End a minute earlier to prevent overlapping time entries
+    body = {'end': zulu(since_dt - timedelta(minutes=1))}
     # Returns a 404 if timer is not running
     await client.request('PATCH', endpoint, json=body)
 

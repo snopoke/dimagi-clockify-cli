@@ -60,3 +60,8 @@ Configuration
        $ cp config.template.yaml ~/.config/dimagi-clockify-cli/config.yaml
 
 3. Edit your ``config.yaml`` file to set up your buckets.
+
+4. Initialize the database where cached projects, tasks and tags are
+   stored::
+
+       $ dcl _init_db

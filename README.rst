@@ -30,11 +30,17 @@ Requirements
 Installation
 ------------
 
-Clone the repository, and install using Poetry ::
+Clone the repository, and install using Poetry::
 
     $ git clone https://github.com/kaapstorm/dimagi-clockify-cli.git
     $ cd dimagi-clockify-cli
     $ poetry install
+
+``poetry install`` will create a virtualenv, install requirements, and
+put the ``dcl`` command in the virtualenv's ``bin`` directory. Activate
+the virtualenv using ::
+
+    $ poetry shell
 
 
 Configuration

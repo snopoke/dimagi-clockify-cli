@@ -30,8 +30,6 @@ def dcl(bucket: str, since: Optional[str] = None):
         raise typer.Exit()
     if bucket == 'stop':
         asyncio.run(stop(config))
-    elif bucket == '_init_db':
-        asyncio.run(init_db())
     else:
         if bucket not in config.buckets:
             typer.echo(f'Unknown bucket "{bucket}"')
@@ -50,6 +48,7 @@ async def work_on(
     else:
         since_t = time.fromisoformat(since)
         since_dt = datetime.combine(date.today(), since_t)
+    await init_db()
     async with get_session() as session, \
             get_client(config) as client:
         workspace = await get_workspace(session, client)

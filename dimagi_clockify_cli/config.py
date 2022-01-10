@@ -28,12 +28,10 @@ def get_config() -> Config:
     with open(config_filename, 'r') as config_file:
         config_dict = load(config_file, Loader=Loader)
     config = Config.parse_obj(config_dict)
-    for reserved in ('stop', '_init_db'):
-        if reserved in config.buckets:
-            raise ValueError(
-                f'"{reserved}" is reserved, and cannot be used as a bucket '
-                f'name'
-            )
+    if 'stop' in config.buckets:
+        raise ValueError(
+            f'"stop" is reserved, and cannot be used as a bucket name'
+        )
     return config
 
 

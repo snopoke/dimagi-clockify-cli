@@ -60,5 +60,5 @@ async def get_session():
 async def init_db():
     engine = get_engine()
     async with engine.begin() as conn:
-        await conn.run_sync(SQLModel.metadata.drop_all)
+        # `create_all()` has no effect if tables exist already
         await conn.run_sync(SQLModel.metadata.create_all)

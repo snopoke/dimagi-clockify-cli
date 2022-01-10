@@ -278,6 +278,7 @@ def slash_join(*strings) -> str:
     'http://example.com/foo'
     >>> slash_join('http://example.com/', '/foo/')
     'http://example.com/foo/'
+
     """
     if len(strings) == 0:
         return ''
@@ -290,8 +291,27 @@ def slash_join(*strings) -> str:
 
 
 def zulu(utc_dt: datetime) -> str:
+    """
+    Returns a UTC datetime as ISO-formatted in Zulu time.
+
+    >>> dt = datetime.utcfromtimestamp(1640995200)
+    >>> zulu(dt)
+    '2022-01-01T00:00:00Z'
+
+    """
     return utc_dt.isoformat(sep='T', timespec='seconds') + 'Z'
 
 
 def is_billable(tags: List[Tag]) -> bool:
+    """
+    Returns ``True`` if any tag in ``tags`` is "Overhead"
+
+    >>> overhead = Tag(name='Overhead')
+    >>> not_overhead = Tag(name='Foo:Bar')
+    >>> is_billable([not_overhead])
+    True
+    >>> is_billable([not_overhead, overhead])
+    False
+
+    """
     return not any(t.name == 'Overhead' for t in tags)

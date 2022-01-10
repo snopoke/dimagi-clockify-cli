@@ -59,5 +59,4 @@ Configuration
 
        $ cp config.template.yaml ~/.config/dimagi-clockify-cli/config.yaml
 
-3. Edit the new config.yaml file to set your team's projects and tasks,
-   and to add your buckets.
+3. Edit your ``config.yaml`` file to set up your buckets.

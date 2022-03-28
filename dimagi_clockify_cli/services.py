@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import List, Optional
 
 import httpx
@@ -238,7 +238,7 @@ async def stop_timer(
         since_dt: Optional[datetime] = None,
 ):
     if since_dt is None:
-        since_dt = datetime.utcnow()
+        since_dt = datetime.now()
     endpoint = f'/workspaces/{workspace.id}/user/{user.id}/time-entries'
     # End a minute earlier to prevent overlapping time entries
     body = {'end': zulu(since_dt - timedelta(minutes=1))}
@@ -290,7 +290,7 @@ def slash_join(*strings) -> str:
     return '/'.join(left + middle + right)
 
 
-def zulu(utc_dt: datetime) -> str:
+def zulu(local_dt: datetime) -> str:
     """
     Returns a UTC datetime as ISO-formatted in Zulu time.
 
@@ -299,7 +299,8 @@ def zulu(utc_dt: datetime) -> str:
     '2022-01-01T00:00:00Z'
 
     """
-    return utc_dt.isoformat(sep='T', timespec='seconds') + 'Z'
+    utc_dt = local_dt.astimezone(timezone.utc)
+    return utc_dt.strftime('%Y-%m-%dT%H:%M:%SZ')
 
 
 def is_billable(tags: List[Tag]) -> bool:

@@ -44,7 +44,7 @@ async def work_on(
         since: Optional[str] = None,
 ):
     if since is None:
-        since_dt = datetime.utcnow()
+        since_dt = datetime.now()
     else:
         since_t = time.fromisoformat(since)
         since_dt = datetime.combine(date.today(), since_t)

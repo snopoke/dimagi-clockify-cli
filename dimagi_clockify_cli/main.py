@@ -31,7 +31,8 @@ def dcl(bucket: str, since: Optional[str] = None):
     if bucket == 'stop':
         asyncio.run(stop(config))
     elif bucket == 'list':
-        typer.echo('\n'.join(sorted(config.buckets.keys())))
+        bucket_list = sorted(config.buckets.keys())
+        typer.echo('\n'.join(bucket_list))
     else:
         if bucket not in config.buckets:
             typer.echo(f'Unknown bucket "{bucket}"')

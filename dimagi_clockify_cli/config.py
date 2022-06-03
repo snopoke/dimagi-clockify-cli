@@ -15,6 +15,9 @@ class Bucket(BaseModel):
     task: str
     tags: List[str]
 
+    def __hash__(self):
+        return hash((self.description, self.project, self.task, ','.join(self.tags)))
+
 
 class Config(BaseModel):
     base_url: str
